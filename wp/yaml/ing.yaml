@@ -1,0 +1,21 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wordpress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: wordpress.cloudgenius.co
+      http:
+        paths:
+          - backend:
+              serviceName: wordpress
+              servicePort: 80
+            path: /
+  tls:
+    - hosts:
+        - "wordpress.cloudgenius.co"
+      secretName: wordpress-tls
